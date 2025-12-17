@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Your Spot | NeonBeat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #09090b; --primary: #00f0ff; --secondary: #ff0050; --text-main: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05); --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .global-bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -99; }
+        .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('hero-bg.jpg') no-repeat center center/cover; filter: grayscale(40%) contrast(1.1) brightness(0.4); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(189, 0, 255, 0.2) 0%, rgba(9,9,11,0.9) 90%); }
+        .booking-wrapper { display: flex; width: 90%; max-width: 1000px; background: rgba(19, 19, 26, 0.8); border: 1px solid var(--glass-border); border-radius: 30px; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,0.8); backdrop-filter: blur(20px); animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .booking-visual { flex: 1; background: linear-gradient(135deg, rgba(0, 31, 63, 0.8), rgba(0,0,0,0.9)); padding: 50px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .booking-visual h2 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; color: var(--primary); text-transform: uppercase; }
+        .back-link { position: absolute; top: 30px; left: 30px; color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: bold; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
+        .back-link:hover { color: var(--primary); }
+        .booking-form { flex: 1.5; padding: 50px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; color: #888; margin-bottom: 8px; font-size: 0.9rem; }
+        .input-group input, .input-group select { width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; color: white; outline: none; transition: 0.3s; }
+        .input-group input:focus { border-color: var(--secondary); box-shadow: 0 0 10px rgba(255, 0, 80, 0.3); }
+        .segments { display: flex; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 10px; border: 1px solid #333; }
+        .segments label { flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 8px; color: #888; transition: 0.3s; margin: 0; font-size: 0.9rem; }
+        .segments input[type="radio"] { display: none; }
+        .segments input:checked + label { background: var(--primary); color: #000; font-weight: 700; }
+        .btn-submit { width: 100%; padding: 15px; background: white; color: black; font-weight: 800; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; margin-top: 10px; text-transform: uppercase; }
+        .btn-submit:hover { background: var(--primary); box-shadow: 0 0 20px var(--primary); }
+        @media (max-width: 800px) { .booking-wrapper { flex-direction: column; overflow-y: scroll; max-height: 90vh; } }
+    </style>
+</head>
+<body>
+    <div class="global-bg-container">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+    </div>
+    <div class="booking-wrapper">
+        <div class="booking-visual">
+            <a href="index.html" class="back-link">← BACK TO HOME</a>
+            <h2>SECURE<br>YOUR SPOT</h2>
+            <p style="color: #ccc; margin-top: 10px; line-height: 1.6;">You are moments away from the best night of your life. VIP tickets include exclusive backstage access.</p>
+        </div>
+        <div class="booking-form">
+            <form id="bookForm">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="userName" placeholder="e.g. Ali Khan">
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="userEmail" placeholder="e.g. ali@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Select Event</label>
+                    <select id="userEvent">
+                        <option>Bayaan (1 Jan)</option>
+                        <option>Kaavish (3 Jan)</option>
+                        <option>Kanye West (7 Jan)</option>
+                        <option>Drake (10 Jan)</option>
+                        <option>The Marías (15 Jan)</option>
+                        <option>PartyNextDoor (20 Jan)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Ticket Type</label>
+                    <div class="segments">
+                        <input type="radio" name="tier" id="t1" value="Standard" checked>
+                        <label for="t1">Standard</label>
+                        <input type="radio" name="tier" id="t2" value="VIP">
+                        <label for="t2">VIP</label>
+                        <input type="radio" name="tier" id="t3" value="Backstage">
+                        <label for="t3">Backstage</label>
+                    </div>
+                </div>
+                <button type="button" class="btn-submit" onclick="processBooking()">CONFIRM BOOKING</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function processBooking() {
+            // 1. Get values from inputs
+            const name = document.getElementById('userName').value;
+            const event = document.getElementById('userEvent').value;
+            
+            // Get selected Radio button
+            let tier = 'Standard';
+            if(document.getElementById('t2').checked) tier = 'VIP';
+            if(document.getElementById('t3').checked) tier = 'Backstage';
+
+            if(name === "") {
+                alert("Please enter your name!");
+                return;
+            }
+
+            // 2. Save data to LocalStorage (This is how we pass data to the next page)
+            localStorage.setItem('ticketName', name);
+            localStorage.setItem('ticketEvent', event);
+            localStorage.setItem('ticketTier', tier);
+
+            // 3. Go to Ticket Page
+            window.location.href = 'ticket.html';
+        }
+    </script>
+</body>
+</html>
