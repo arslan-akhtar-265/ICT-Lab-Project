@@ -15,9 +15,9 @@ This project was developed for the **Introduction to ICT** course to demonstrate
 
 | Name | Role | Student ID |
 | :--- | :--- | :--- |
-| **Arslan Akhtar** | Group Leader / Full Stack Dev | [INSERT ID] |
-| **Rubab Zahra** | Event Manager / Content | [INSERT ID] |
-| **Hania Dar** | Social Media / QA Tester | [INSERT ID] |
+| **Arslan Akhtar** | Group Leader / Full Stack Dev | 01-135252-046 |
+| **Rubab Zahra** | Event Manager / Content | 01-135252-067 |
+| **Hania Dar** | Social Media / QA Tester | 01-135252-027 |
 
 ## 🚀 Key Features
 
@@ -32,3 +32,4 @@ This project was developed for the **Introduction to ICT** course to demonstrate
 
 ---
 *Submitted to Sir Adnan Jelani | December 16, 2025*
+
