@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Ticket | NeonBeat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Teko:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #09090b; --primary: #00f0ff; --secondary: #ff0050; --text-main: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-direction: column; }
+
+        /* Background */
+        .global-bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -99; }
+        .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('hero-bg.jpg') no-repeat center center/cover; filter: grayscale(40%) contrast(1.1) brightness(0.4); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(189, 0, 255, 0.2) 0%, rgba(9,9,11,0.9) 90%); }
+
+        h1 { margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 20px rgba(255,255,255,0.2); text-align: center; }
+
+        /* THE TICKET DESIGN */
+        .ticket-container {
+            width: 800px;
+            height: 320px; /* Slightly taller to fit image nicely */
+            background: rgba(20, 20, 25, 0.9);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            display: flex;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
+            position: relative;
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            animation: popIn 0.5s ease-out;
+        }
+        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* Left Side (Main Info) */
+        .ticket-main {
+            flex: 2.5;
+            padding: 40px;
+            border-right: 2px dashed #444;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* NEW: Container for Image + Artist Name side-by-side */
+        .artist-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* NEW: Style for the small artist image on ticket */
+        .ticket-artist-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+        
+        /* Holes for the dashed line */
+        .ticket-main::before, .ticket-main::after {
+            content: ''; position: absolute; right: -15px; width: 30px; height: 30px; background: #000; border-radius: 50%; border: 2px solid var(--primary);
+        }
+        .ticket-main::before { top: -17px; }
+        .ticket-main::after { bottom: -17px; }
+
+        .event-name { font-family: 'Teko', sans-serif; font-size: 4rem; line-height: 1; color: var(--primary); text-transform: uppercase; margin-bottom: 5px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+        .event-info { display: flex; gap: 40px; margin-top: 20px; }
+        .info-box span { display: block; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .info-box strong { font-size: 1.2rem; color: white; letter-spacing: 1px; }
+
+        /* Right Side (Stub) */
+        .ticket-stub {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.03);
+            text-align: center;
+        }
+        
+        .seat-number { font-size: 2.5rem; font-weight: 800; color: var(--secondary); margin-bottom: 5px; text-shadow: 0 0 15px var(--secondary); }
+        .seat-label { font-size: 0.9rem; color: #aaa; text-transform: uppercase; margin-bottom: 20px; }
+        
+        .barcode {
+            width: 100%;
+            height: 50px;
+            background: repeating-linear-gradient(90deg, #fff 0px, #fff 2px, transparent 2px, transparent 4px);
+            margin-top: auto;
+            opacity: 0.7;
+        }
+
+        .btn-home { margin-top: 30px; padding: 15px 40px; background: transparent; border: 2px solid white; color: white; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; }
+        .btn-home:hover { background: white; color: black; }
+
+        @media (max-width: 850px) {
+            .ticket-container { flex-direction: column; width: 90%; height: auto; }
+            .ticket-main { border-right: none; border-bottom: 2px dashed #444; }
+            .ticket-main::before, .ticket-main::after { display: none; }
+            .event-name { font-size: 3rem; }
+            .artist-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .ticket-artist-img { width: 70px; height: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="global-bg-container">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+    </div>
+
+    <h1>Ticket Confirmed!</h1>
+
+    <div class="ticket-container">
+        <div class="ticket-main">
+            <div class="artist-header">
+                <img id="displayImage" src="" alt="Artist" class="ticket-artist-img">
+                <div>
+                    <h2 class="event-name" id="displayEvent">LOADING...</h2>
+                    <p style="font-size: 1.1rem; letter-spacing: 2px;">TASTE FEST ISLAMABAD PRESENTS</p>
+                </div>
+            </div>
+            
+            <div class="event-info">
+                <div class="info-box">
+                    <span>Issued To</span>
+                    <strong id="displayName">---</strong>
+                </div>
+                <div class="info-box">
+                    <span>Venue (ISB)</span>
+                    <strong id="displayLocation">---</strong>
+                </div>
+                <div class="info-box">
+                    <span>Tier</span>
+                    <strong id="displayTier" style="color: var(--secondary);">---</strong>
+                </div>
+                <div class="info-box">
+                    <span>Time</span>
+                    <strong>08:00 PM</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="ticket-stub">
+            <div class="seat-number" id="displaySeat">---</div>
+            <div class="seat-label">Seat Number</div>
+            <div class="barcode"></div>
+            <p style="margin-top:10px; font-size:0.7rem; color:#666;">ID: 98237492</p>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn-home">Back to Home</a>
+
+    <script>
+        // 1. Retrieve Data from LocalStorage
+        const name = localStorage.getItem('ticketName') || "Guest";
+        const eventFull = localStorage.getItem('ticketEvent') || "Bayaan (1 Jan)";
+        const tier = localStorage.getItem('ticketTier') || "Standard";
+
+        // --- NEW: Map Event Names to Image Filenames ---
+        // Make sure these filenames match exactly what is in your folder!
+        const artistImages = {
+            "Bayaan (1 Jan)": "bayaan.jpg",
+            "Kaavish (3 Jan)": "kaavish.jpg",
+            "Kanye West (7 Jan)": "kanye.jpg",
+            "Drake (10 Jan)": "drake.jpg",
+            "The Marías (15 Jan)": "marias.jpg",
+            "PartyNextDoor (20 Jan)": "party.jpg"
+        };
+
+        // Get correct image, default to bayaan if not found
+        const imageFile = artistImages[eventFull] || "bayaan.jpg";
+
+        // Clean up event name (remove date inside parenthesis for main title)
+        const eventNameOnly = eventFull.split('(')[0];
+
+        // 2. Random Location Generator
+        const locations = [
+            "F-9 Park, Islamabad",
+            "PNCA Auditorium",
+            "Jinnah Convention Centre",
+            "Lok Virsa Theatre",
+            "Arts Council, Rawalpindi"
+        ];
+        const randomLoc = locations[Math.floor(Math.random() * locations.length)];
+
+        // 3. Random Seat Generator
+        const rows = ["A", "B", "C", "D", "E"];
+        const randomRow = rows[Math.floor(Math.random() * rows.length)];
+        const randomNum = Math.floor(Math.random() * 50) + 1;
+        const seat = randomRow + "-" + randomNum;
+
+        // 4. Inject Data into HTML
+        document.getElementById('displayImage').src = imageFile; // Load the image
+        document.getElementById('displayEvent').innerText = eventNameOnly;
+        document.getElementById('displayName').innerText = name;
+        document.getElementById('displayTier').innerText = tier;
+        document.getElementById('displayLocation').innerText = randomLoc;
+        document.getElementById('displaySeat').innerText = seat;
+    </script>
+
+</body>
+</html>
