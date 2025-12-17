@@ -14,9 +14,10 @@ This project was developed for the **Introduction to ICT** course to demonstrate
 ## 👥 Group Members
 
 | Name | Role | Student ID |
-| **Arslan Akhtar** | Group Leader / Full Stack Dev 
-| **Rubab Zahra** | Event Manager / Content 
-| **Hania Dar** | Social Media / QA Tester 
+| :--- | :--- | :--- |
+| **Arslan Akhtar** | Group Leader / Full Stack Dev | [INSERT ID] |
+| **Rubab Zahra** | Event Manager / Content | [INSERT ID] |
+| **Hania Dar** | Social Media / QA Tester | [INSERT ID] |
 
 ## 🚀 Key Features
 
